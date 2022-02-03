@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/task_data.dart';
 
 class TaskAddForm extends StatefulWidget {
   @override
@@ -6,6 +8,7 @@ class TaskAddForm extends StatefulWidget {
 }
 
 class _TaskAddFormState extends State<TaskAddForm> {
+  String _text;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,13 +38,19 @@ class _TaskAddFormState extends State<TaskAddForm> {
                 ),
                 TextField(
                   autofocus: true,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    _text = value;
+                  },
                 ),
                 SizedBox(
                   height: 54.0,
                 ),
                 FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<TaskData>(context, listen: false)
+                        .addTask(_text);
+                    Navigator.pop(context);
+                  },
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
                   child: Text(
